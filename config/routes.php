@@ -1,0 +1,10 @@
+<?php
+
+return [
+    'home' => [
+        'controller' => 'Homepage',
+    ],
+    '404' => [
+        'controller' => 'Error/404',
+    ]
+];
