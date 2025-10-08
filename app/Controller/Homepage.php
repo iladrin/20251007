@@ -1,8 +1,21 @@
 <?php
 
-function render(): void
-{
-    // ...
+namespace App\Controller;
 
-    require TEMPLATES_PATH . '/homepage.php';
+use App\Service\Container;
+use Psr\Log\LoggerInterface;
+
+class Homepage
+{
+    public function __construct(private readonly Container $container)
+    {
+    }
+
+    public function __invoke(): void
+    {
+        // ...
+        $this->container->get(LoggerInterface::class)->debug('Homepage controller called');
+
+        require TEMPLATES_PATH . '/homepage.php';
+    }
 }

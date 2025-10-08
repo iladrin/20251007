@@ -1,5 +1,5 @@
 home:
-  controller: 'Homepage'
+  controller: 'App\Controller\Homepage'
 
-404:
-  controller: 'Error/404'
+error:
+  controller: 'App\Controller\Error'

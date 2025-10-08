@@ -1,19 +1,32 @@
 <?php
-use Symfony\Component\Yaml\Yaml;
 
 require '../vendor/autoload.php';
 
 $routes = require '../config/routes.php';
-$routes = Yaml::parseFile('../config/routes.yaml');
+$routes = Symfony\Component\Yaml\Yaml::parseFile('../config/routes.yaml');
 
 $requestedPage = $_GET['page'] ?? 'home';
 
 if (!array_key_exists($requestedPage, $routes)) {
-    $requestedPage = '404';
+    $requestedPage = 'error';
 }
+
+$container = (new \App\Service\Container())
+    ->add(Psr\Log\LoggerInterface::class, function () {
+        return new App\Service\Log\Logger(dirname(__DIR__) . '/var/log/dev.log');
+    });
+
 
 define('TEMPLATES_PATH', dirname(__DIR__) . '/templates');
 
-//require '../app/Controller/' . $routes[$requestedPage]['controller'] . '.php';
-require "../app/Controller/{$routes[$requestedPage]['controller']}.php";
-render();
+$controllerName = $routes[$requestedPage]['controller'];
+
+try {
+    $controller = new $controllerName($container);
+    $controller();
+
+//    $logger = new App\Service\Log\Logger(dirname(__DIR__) . '/var/log/dev.log');
+//    $logger->info('Controller called: ' . $controllerName);
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
