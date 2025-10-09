@@ -1,5 +1,14 @@
 home:
   controller: 'App\Controller\Homepage'
 
+login:
+  controller: 'App\Controller\Security\Login'
+
+logout:
+  controller: 'App\Controller\Security\Logout'
+
+contact:
+  controller: 'App\Controller\Contact'
+
 error:
   controller: 'App\Controller\Error'

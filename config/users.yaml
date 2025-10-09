@@ -1,0 +1,10 @@
+- username: benoit
+  password: $2y$12$ITKCYuvYhPl8igcfqrmfdebHOpFreAk7MpMiqiCfskoUuRIVABD7S
+  roles:
+    - admin
+    - user
+
+- username: damien
+  password: $2y$12$YWErUZnGZ4ZRUvA1o9MKuOKWnUjpN/dzc3E8NQVVn0qGMEh35C69y
+  roles:
+    - user

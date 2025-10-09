@@ -14,6 +14,8 @@ class Homepage
     public function __invoke(): void
     {
         // ...
+        dump($_SESSION);
+
         $this->container->get(LoggerInterface::class)->debug('Homepage controller called');
 
         require TEMPLATES_PATH . '/homepage.php';
