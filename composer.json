@@ -1,5 +1,6 @@
 {
     "require": {
+        "ext-pdo": "*",
         "symfony/var-dumper": "^7.3",
         "symfony/yaml": "^7.3",
         "psr/log": "^3.0",

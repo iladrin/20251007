@@ -17,6 +17,7 @@ session_start();
 
 // Enable the VarDumper to be collected by the server dump command
 // @example vendor/bin/var-dump-server
+// @example php bin/console.php server:dump
 $cloner = new VarCloner();
 $fallbackDumper = \in_array(\PHP_SAPI, ['cli', 'phpdbg']) ? new CliDumper() : new HtmlDumper();
 $dumper = new ServerDumper('tcp://127.0.0.1:9912', $fallbackDumper, [
@@ -44,12 +45,19 @@ if (!array_key_exists($requestedPage, $routes)) {
 
 // Create a container with services
 $container = (new \App\Service\Container())
+    ->add(App\Service\Database::class, function () {
+        return new App\Service\Database();
+    })
+    ->add(\App\EntityManager\UserManager::class, function () use (&$container) {
+        return new \App\EntityManager\UserManager($container);
+    })
     ->add(Psr\Log\LoggerInterface::class, function () {
         return new App\Service\Log\Logger(dirname(__DIR__) . '/var/log/dev.log');
     });
 
 
-define('TEMPLATES_PATH', dirname(__DIR__) . '/templates');
+define('PROJECT_PATH', dirname(__DIR__));
+const TEMPLATES_PATH = PROJECT_PATH . '/templates';
 
 $controllerName = $routes[$requestedPage]['controller'];
 

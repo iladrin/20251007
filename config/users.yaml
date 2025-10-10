@@ -1,6 +1,7 @@
-- username: benoit
+- id: 1 # AUTOINCREMENT
+  username: benoit # INDEX
   password: $2y$12$ITKCYuvYhPl8igcfqrmfdebHOpFreAk7MpMiqiCfskoUuRIVABD7S
-  roles:
+  roles: # 'admin,user'
     - admin
     - user
 
